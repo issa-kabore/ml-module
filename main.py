@@ -1,6 +1,6 @@
 # This is a sample Python script.
 from module import LOGGER
-from module.eda import *
+from module.data_exploration import *
 import module.preprocessing as pr
 
 import pandas as pd
@@ -18,7 +18,16 @@ if __name__ == '__main__':
     df = pd.read_csv(path_data + filename)
     # print(df.head())
 
-    columns = get_columns(df)
+    columns = df.columns
     print(columns)
+
+    var = "hum"
+    # plot_hist(df[var])
+    profile = data_visualization(df)
+    print(profile)
+    profile.to_file("your_report.html")
+
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
