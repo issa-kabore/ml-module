@@ -6,7 +6,10 @@ import module.preprocessing as pr
 import pandas as pd
 pd.set_option("display.max.columns", None)
 # pd.set_option("display.precision", 2)
+import os
 
+path = os.getcwd()
+os.chdir(path)
 
 # --------------------------------------
 path_data = "data/"
@@ -16,18 +19,20 @@ filename = "bike-rentals.csv"
 if __name__ == '__main__':
     LOGGER.info('Importing data')
     df = pd.read_csv(path_data + filename)
-    # print(df.head())
+    target = "rentals"
+    var = "season"
 
-    columns = df.columns
-    print(columns)
+    LOGGER.info('Exploring dataset')
+    data = df.copy()
+    data = convert_to_categorical(data, columns_names=['season', 'workingday', 'weathersit', 'holiday'])
 
-    var = "hum"
     # plot_hist(df[var])
-    profile = data_visualization(df)
-    print(profile)
-    profile.to_file("your_report.html")
-
-
+    # plot_heatmap(df)
+    # profile = data_visualization(df)
+    # print(profile)
+    # profile.to_file("your_report.html")
+    # plot_boxplot(data, target=target, var=var)
+    plot_relationship(data, target=var, kind="bar")
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
